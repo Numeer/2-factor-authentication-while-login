@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Disable Otp{% endblock %}
+{% block content %}
+
+{% if error %}
+    <div class="containerr">
+        {{ error }}
+    </div>
+    {% endif %}
+    
+<form id="disableOTPForm" method="post" action="/otp/disable">
+    {% csrf_token %}
+    <input type="hidden" id="user_id" name="user_id" value="{user_id_here}">
+    <button type="submit">Disable OTP</button>
+</form>
+{% end block %}

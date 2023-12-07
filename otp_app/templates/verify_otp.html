@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Verify Otp{% endblock %}
+{% block content %}
+
+    <h1>Verify OTP</h1>
+    {% if error %}
+    <div class="containerr">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    {% if code %}
+    <div class="containerr">
+        {{ message }} <br> <br>
+        {{ code }} <br> <br>
+        {{ code2 }}
+    </div>
+    {% endif %}
+    <form id="verifyOTPForm" method="post" action="/otp/verify">
+        {% csrf_token %}
+        <label for="user_id">User ID:</label>
+        <input type="text" id="user_id" name="user_id" >
+        <label for="token">OTP Token:</label>
+        <input type="text" id="token" name="token" required><br><br>
+        <button type="submit">Verify OTP</button>
+    </form>
+{% endblock %}
