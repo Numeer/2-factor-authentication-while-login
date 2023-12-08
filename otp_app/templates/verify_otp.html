@@ -1,27 +1,102 @@
 {% extends 'base.html' %}
 {% block title %}Verify Otp{% endblock %}
 {% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #aa4b6b, #6b6b83, #3b8d99);
+            color: #ecf0f1; /* Text color */
+        }
 
-    <h1>Verify OTP</h1>
-    {% if error %}
+        .container {
+            text-align: center;
+            background-color: #34495e; /* Container background color */
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: transform 0.5s;
+            margin-bottom: 20px; /* Space at the front */
+        }
+
+        .containerr {
+            background-color: #e74c3c; /* Error message background color */
+            color: #fff; /* Error message text color */
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #ecf0f1; /* Heading color */
+        }
+
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #ecf0f1; /* Input background color */
+            color: #2c3e50; /* Input text color */
+        }
+
+        button {
+            background-color: #27ae60; /* Button background color */
+            color: #ecf0f1; /* Button text color */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #219d54; /* Darker shade on hover */
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
     <div class="containerr">
+        {% if error %}
         {{ error }}
-    </div>
-    {% endif %}
-
-    {% if code %}
-    <div class="containerr">
+        {% endif %}
+        {% if code %}
         {{ message }} <br> <br>
-        {{ code }} <br> <br>
-        {{ code2 }}
+        Google Authenticator Code : {{ code }} <br> <br>
+        User ID : {{ code2 }}
+        {% endif %}
+
     </div>
-    {% endif %}
-    <form id="verifyOTPForm" method="post" action="/otp/verify">
-        {% csrf_token %}
-        <label for="user_id">User ID:</label>
-        <input type="text" id="user_id" name="user_id" >
-        <label for="token">OTP Token:</label>
-        <input type="text" id="token" name="token" required><br><br>
-        <button type="submit">Verify OTP</button>
-    </form>
+    <div class="container">
+        <h2>Verify OTP</h2>
+        <form method="post" action="/otp/verify">
+            {% csrf_token %}
+            <input type="text" id="user_id" name ="user_id" placeholder="User ID" required>
+            <input type="text" id="token" name="token"  placeholder="OTP Token" required>
+            <button type="submit">Verify OTP</button>
+        </form>
+    </div>
+</body>
 {% endblock %}

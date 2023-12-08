@@ -1,36 +1,47 @@
 {% extends 'base.html' %}
 {% block title %}Register{% endblock %}
-
 {% block content %}
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signup Form</title>
+  <link
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    rel="stylesheet" />
+  <link
+    href="http://infiniteiotdevices.com/images/logo.png"
+    rel="icon"
+    sizes="16x16"
+    type="image/gif" />
+  <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
-<body style=" align-items:center; justify-content:center;">
+<body>
   {%if error%}
-  <div class = "containerr">
-    {{error}}
-  </div>
+  <div class="containerr">{{error}}</div>
   {%endif%}
-  <div class="login-page">
-    <div class="form">
-        <form class="login-form"  method="post" action="/">
-        {% csrf_token %}
-        <h2><i class="fas fa-lock"></i> Register</h2>
-        <input type="email" id="email" placeholder="Email" name="email" required><br><br>
-        <input type="name" id="name" placeholder="Name" name="name" required><br><br>
-        <input type="password" id="password" placeholder="Password" name="password" required><br><br>
-        <button type="submit">Register</button>
-        <p class="message">Already registered? <a href="{% url 'login' %}">Sign In</a></p>
+
+  <div class="box">
+    <h2>Sign UP</h2>
+    <form method="post" action="/">
+      {% csrf_token %}
+      <div class="inputBox">
+        <input type="email" id="email" name="email" required />
+        <label>Email</label>
+      </div>
+      <div class="inputBox">
+        <input type="text" id="name" name="name" required />
+        <label>Name</label>
+      </div>
+      <div class="inputBox">
+        <input type="password" id="password" name="password" required />
+        <label>Password</label>
+      </div>
+      <button type="submit">Sign Up</button>
+      <h4>
+        Already have an account? <a href="{% url 'login' %}" id="createAccount">Login</a>
+      </h4>
     </form>
-</div>
-</div>
-{% endblock %}
+  </div>
+  {% endblock %}
+</body>

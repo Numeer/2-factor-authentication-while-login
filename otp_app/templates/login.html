@@ -1,48 +1,67 @@
 {% extends 'base.html' %}
 {% block title %}Login{% endblock %}
-
 {% block content %}
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Sign In</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-              integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-              crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    </head>
-    <body style=" align-items:center; justify-content:center;">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Input From UI Design</title>
+    <link
+        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        rel="stylesheet" />
+    <link
+        href="http://infiniteiotdevices.com/images/logo.png"
+        rel="icon"
+        sizes="16x16"
+        type="image/gif" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
     {% if error %}
     <div class="containerr">
         {{ error }}
     </div>
     {% endif %}
-    <div class="login-page">
-        <div class="form">
-            {% if not status %}
-            <form class="login-form" method="post" action="/login">
-        {% csrf_token %}
-        <h2><i class="fas fa-lock"></i>Login</h2>
-        <input type="email" id="email" placeholder = "Email" name="email" required><br><br>
-        <input type="password" id="password" placeholder = "Password" name="password" required><br><br>
-        <button type="submit">Login</button> <br> <br>
-        <p class="message">Not registered? <a href="{% url 'register' %}">Create an account</a></p>
-        {% endif %}
+    <div class="box">
+        <h2>Login</h2>
+        {% if not status %}
+        <form method="post" action="/login">
+            {% csrf_token %}
+            <div class="inputBox">
+                <input type="email" id="email" name="email" required />
+                <label>Email</label>
+            </div>
+            <div class="inputBox">
+                <input type="password" id="password" name="password"
+                    required />
+                <label>Password</label>
+            </div>
+            <button type="submit" id="login">Login</button>
+            <h4>
+                Create account? <a href="{% url 'register' %}"
+                    id="createAccount">SignUp</a>
+            </h4>
+            {% endif %}
+        </form>
         {% if status %}
-        {{ user_id }} <br> <br>
-        <form id="otpForm" method="post" action="{% url 'generate' %}">
-        {% csrf_token %}
-        <input type="hidden" id="user_id" name="user_id" value="{{ user_id }}">
-        <input type="hidden" id="email" name="email" value="{{ email }}">
-        <button type = "submit" class="btn btn-primary">Generate OTP</button><br><br>
+        <div class="inputBox">
+            <input type="text" id="text" name="user_id"
+                value="{{ user_id }}" />
+        </div> <br>
+        <form action="{% url 'generate' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" id="user_id" name="user_id"
+                value="{{ user_id }}" />
+            <input type="hidden" id="email" name="email" value="{{ email }}" />
+            <button type="submit" class="btn btn-primary">Generate OTP</button><br /><br />
+            <br>
         </form>
         <form id="validateForm" method="get" action="{% url 'validate' %}">
             {% csrf_token %}
-        <button type = "submit" class="btn btn-primary">Validate OTP</a>
-        {% endif %}
-    </form>
-</div>
-</div>
+            <button type="submit" class="btn btn-primary">Validate OTP</a>
+            {% endif %}
+        </form>
+
+    </div>
 </body>
 {% endblock %}

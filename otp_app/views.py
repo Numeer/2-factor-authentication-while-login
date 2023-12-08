@@ -105,7 +105,7 @@ class ValidateOTP(generics.GenericAPIView):
         otp_token = data.get('token', None)
         user = UserModel.objects.filter(id=user_id).first()
         if user == None:
-            return render(request, 'login.html',{"status": "fail", "error": f"No user with Id: {user_id} found Generate Otp First"}, status=status.HTTP_404_NOT_FOUND)
+            return render(request, 'validate_otp.html',{"status": "fail", "error": f"No user with Id: {user_id} found Generate Otp First"}, status=status.HTTP_404_NOT_FOUND)
 
         if not user.otp_verified:
             return render(request, 'validate_otp.html',{"status": "fail", "error": "OTP must be verified first"}, status=status.HTTP_404_NOT_FOUND)
@@ -114,7 +114,7 @@ class ValidateOTP(generics.GenericAPIView):
         if not totp.verify(otp_token, valid_window=1):
             return render(request, 'validate_otp.html',{"status": "fail", "error": message}, status=status.HTTP_400_BAD_REQUEST)
 
-        return render(request, 'validate_otp.html',{'otp_valid': True})
+        return render(request, 'validate_otp.html',{'otp_valid': True, "error" : "OTP Validated Successfully"})
 
 
 class DisableOTP(generics.GenericAPIView):
