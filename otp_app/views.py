@@ -19,7 +19,7 @@ class RegisterView(generics.GenericAPIView):
         if serializer.is_valid():
             try:
                 serializer.save()
-                return render(request, 'login.html',{"status": "success", 'error': "Registered successfully,Please Login"}, status=status.HTTP_201_CREATED)
+                return render(request, 'login.html',{'error': "Registered successfully,Please Login"}, status=status.HTTP_201_CREATED)
             except:
                 return render(request, 'register.html',{"status": "fail", "error": "User with that email already exists"}, status=status.HTTP_409_CONFLICT)
         else:
@@ -90,7 +90,7 @@ class VerifyOTP(generics.GenericAPIView):
         user.save()
         serializer = self.serializer_class(user)
 
-        return render(request, 'validate_otp.html',{'otp_verified': True, "code": user.id, "user": serializer.data})
+        return render(request, 'validate_otp.html',{'otp_verified': True, "code": user.id, "error": "Verified Successfully Please Validate", "user": serializer.data})
 
 
 class ValidateOTP(generics.GenericAPIView):
